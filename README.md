@@ -20,6 +20,7 @@ lmp or lockmyphone is a anroid tool written in react native expo to lock out all
 
 ## Screenshots
 
+![Screenshot_20250608-134930](https://github.com/user-attachments/assets/69202b69-4878-4865-9a56-3d435dc724dd)
 
 
 
