@@ -47,9 +47,18 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
-          name="explore"
+          name="pomodoro"
           options={{
-            title: "Explore",
+            title: "Pomodoro",
+            tabBarIcon: ({ color }) => (
+              <Icon source="clock" color={color} size={26} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="settings"
+          options={{
+            title: "Settings",
             tabBarIcon: ({ color }) => (
               <Icon source="cog" color={color} size={26} />
             ),
