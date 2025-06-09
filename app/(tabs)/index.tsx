@@ -8,19 +8,16 @@ import { LinearGradient } from "expo-linear-gradient"; // or `import LinearGradi
 import { router } from "expo-router";
 import {
   PaperProvider,
-  ActivityIndicator,
-  MD2Colors,
+  Snackbar,
   TextInput,
-  ProgressBar,
+  FAB,
   Searchbar,
   MD3Colors,
   Button,
   Appbar,
-  Card,
   List,
   Dialog,
   Portal,
-  Avatar,
   Text,
   useTheme,
 } from "react-native-paper";
@@ -75,6 +72,11 @@ const formatTime = ({
 export default function HomeScreen() {
   const name = "Ansh";
   const [defaultime, setDefaulttime] = React.useState(30);
+  const [visiblesnbar, setVisiblesnbar] = React.useState(false);
+
+  const onToggleSnackBar = () => setVisiblesnbar(true);
+
+  const onDismissSnackBar = () => setVisiblesnbar(false);
 
   useEffect(() => {
     async function fetchGoals() {
@@ -91,6 +93,7 @@ export default function HomeScreen() {
   const [alarmString, setAlarmString] = React.useState<string | null>(null);
   const [visible, setVisible] = React.useState(false);
   const [visible2, setVisible2] = React.useState(false);
+  const [addbutdis, setButdis] = React.useState(false);
   const [goal, setGoal] = React.useState("");
   const [goaltime, setGoaltime] = React.useState(defaultime * 60); // defaultime in minutes, so multiply by 60
   const [goalist, setGoalist] = React.useState([
@@ -99,14 +102,15 @@ export default function HomeScreen() {
     { key: "Yoga", streak: 0, time: 1800 },
     { key: "Running", streak: 0, time: 1800 },
   ]);
-  const [addbutdis, setButdis] = React.useState(true);
 
   const theme = useTheme();
   const nav = useNavigation();
 
   const closedopend = () => {
-    hideDialog();
-    showDialog2();
+    if (goal.trim().length > 0) {
+      hideDialog();
+      showDialog2();
+    }
   };
 
   const goalFlow = async () => {
@@ -120,6 +124,7 @@ export default function HomeScreen() {
       setGoal("");
       setAlarmString(null);
       await saveGoals(newGoalList);
+      onToggleSnackBar();
     }
   };
 
@@ -145,6 +150,8 @@ export default function HomeScreen() {
         <Appbar.Content title="Lock My Phone" />
         <Appbar.Action icon="information" onPress={() => {}} />
       </Appbar.Header>
+
+      <FAB icon="plus" style={styles.fab} onPress={() => showDialog()} />
 
       <ScrollView
         contentContainerStyle={{ justifyContent: "space-evenly" }}
@@ -266,6 +273,18 @@ export default function HomeScreen() {
               <Dialog.Actions>
                 <Button onPress={hideDialog2}>Cancel</Button>
                 <Button onPress={goalFlow}>Next</Button>
+                <Snackbar
+                  visible={visiblesnbar}
+                  onDismiss={onDismissSnackBar}
+                  action={{
+                    label: "Undo",
+                    onPress: () => {
+                      // Do something
+                    },
+                  }}
+                >
+                  Hey there! I'm a Snackbar.
+                </Snackbar>
               </Dialog.Actions>
             </Dialog>
           </Portal>
@@ -338,6 +357,14 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
+  fab: {
+    position: "absolute",
+    margin: 16,
+    padding: 2,
+    right: 0,
+    bottom: 0,
+    zIndex: 100,
+  },
   titleContainer: {
     flexDirection: "row",
     alignItems: "center",

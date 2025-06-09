@@ -39,7 +39,7 @@ export default function TabTwoScreen() {
         contentContainerStyle={{ justifyContent: "space-evenly" }}
         style={{ flex: 1, padding: 10, marginTop: 0 }}
       >
-        <Searchbar
+        {/* <Searchbar
           style={{
             marginBottom: 4,
             marginTop: 10,
@@ -49,7 +49,7 @@ export default function TabTwoScreen() {
           onBlur={() => setButdis(true)}
           placeholder="Search"
           mode="bar"
-        />
+        /> */}
         {/* <View
           style={{
             backgroundColor: MD3Colors.neutralVariant20,
@@ -83,7 +83,7 @@ export default function TabTwoScreen() {
                   marginTop: 20,
                   borderRadius: 24,
                 }}
-                description="settings related to your prefrences"
+                description="Customize how the app works for you."
                 left={(props) => <List.Icon {...props} icon="tune" />}
               />
               <List.Item
@@ -95,22 +95,11 @@ export default function TabTwoScreen() {
 
                   borderRadius: 24,
                 }}
-                description="settings related to notifications"
-                left={(props) => <List.Icon {...props} icon="bell" />}
+                description="Control app alerts."
+                left={(props) => <List.Icon {...props} icon="bell-outline" />}
               />
-              <List.Item
-                title="Goals"
-                style={{
-                  backgroundColor: MD3Colors.neutralVariant20,
-                  padding: 5,
-                  margin: 2,
 
-                  borderRadius: 24,
-                }}
-                description="Settings related to Goals"
-                left={(props) => <List.Icon {...props} icon="bullseye-arrow" />}
-              />
-              <List.Item
+              {/*  <List.Item
                 title="Privacy"
                 style={{
                   backgroundColor: MD3Colors.neutralVariant20,
@@ -120,10 +109,11 @@ export default function TabTwoScreen() {
                   borderRadius: 24,
                 }}
                 description="lockmyphone's community"
-                left={(props) => <List.Icon {...props} icon="account-group" />}
+                left={(props) => <List.Icon {...props} icon="shield-lock" />}
               />
+
               <List.Item
-                title="Dummy2"
+                title="Stats"
                 style={{
                   backgroundColor: MD3Colors.neutralVariant20,
                   padding: 5,
@@ -132,10 +122,11 @@ export default function TabTwoScreen() {
                   borderRadius: 24,
                 }}
                 description="lockmyphone's community"
-                left={(props) => <List.Icon {...props} icon="account-group" />}
-              />
+                left={(props) => <List.Icon {...props} icon="chart-box" />}
+              /> */}
+
               <List.Item
-                title="Dummy3"
+                title="Goals"
                 style={{
                   backgroundColor: MD3Colors.neutralVariant20,
                   padding: 5,
@@ -143,20 +134,8 @@ export default function TabTwoScreen() {
 
                   borderRadius: 24,
                 }}
-                description="lockmyphone's community"
-                left={(props) => <List.Icon {...props} icon="account-group" />}
-              />
-              <List.Item
-                title="Dummy4"
-                style={{
-                  backgroundColor: MD3Colors.neutralVariant20,
-                  padding: 5,
-                  margin: 2,
-
-                  borderRadius: 24,
-                }}
-                description="lockmyphone's community"
-                left={(props) => <List.Icon {...props} icon="account-group" />}
+                description="Manage your goals."
+                left={(props) => <List.Icon {...props} icon="bullseye-arrow" />}
               />
               <List.Item
                 title="Pomodoro Timer"
@@ -164,14 +143,24 @@ export default function TabTwoScreen() {
                   backgroundColor: MD3Colors.neutralVariant20,
                   padding: 5,
                   margin: 2,
-                  marginBottom: 20,
                   borderRadius: 24,
                 }}
-                description="settings related to pomodoro timer"
-                left={(props) => <List.Icon {...props} icon="clock" />}
+                description="Timer setup."
+                left={(props) => <List.Icon {...props} icon="clock-outline" />}
+              />
+              <List.Item
+                title="Backup & Restore"
+                style={{
+                  backgroundColor: MD3Colors.neutralVariant20,
+                  padding: 5,
+                  margin: 2,
+
+                  borderRadius: 24,
+                }}
+                description="Save or recover your data."
+                left={(props) => <List.Icon {...props} icon="backup-restore" />}
               />
 
-              <Divider />
               <Text
                 style={{ marginTop: 20, color: MD3Colors.neutralVariant60 }}
               >
@@ -186,9 +175,10 @@ export default function TabTwoScreen() {
                   marginTop: 20,
                   borderRadius: 24,
                 }}
-                description="About lockmyphone and its contributors"
+                description="App and contributors info."
                 left={(props) => <List.Icon {...props} icon="information" />}
               />
+
               <List.Item
                 title="Terms And Conditions"
                 style={{
@@ -198,8 +188,10 @@ export default function TabTwoScreen() {
 
                   borderRadius: 24,
                 }}
-                description="lockmyphone's Terms and Conditions"
-                left={(props) => <List.Icon {...props} icon="note-multiple" />}
+                description="Review terms and conditions."
+                left={(props) => (
+                  <List.Icon {...props} icon="book-open-variant" />
+                )}
               />
               <List.Item
                 title="Open Source Licences"
@@ -212,6 +204,18 @@ export default function TabTwoScreen() {
                 }}
                 description="Open source licences"
                 left={(props) => <List.Icon {...props} icon="license" />}
+              />
+              <List.Item
+                title="Report a Bug"
+                style={{
+                  backgroundColor: MD3Colors.neutralVariant20,
+                  padding: 5,
+                  margin: 2,
+
+                  borderRadius: 24,
+                }}
+                description="Report bugs or issues"
+                left={(props) => <List.Icon {...props} icon="bug" />}
               />
 
               <Text
