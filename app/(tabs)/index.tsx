@@ -251,7 +251,7 @@ export default function HomeScreen() {
                     setGoaltime(totalSeconds || defaultime * 60); // defaultime in minutes, so multiply
                     setShowPicker(false);
                   }}
-                  modalTitle="Set Alarm"
+                  modalTitle="Set Time For Goal"
                   onCancel={() => setShowPicker(false)}
                   closeOnOverlayPress
                   LinearGradient={LinearGradient}

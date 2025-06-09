@@ -41,7 +41,7 @@ export default function TabTwoScreen() {
       >
         <Searchbar
           style={{
-            marginBottom: 20,
+            marginBottom: 4,
             marginTop: 10,
             backgroundColor: MD3Colors.neutralVariant30,
           }}
@@ -69,22 +69,13 @@ export default function TabTwoScreen() {
           data={goalist}
           renderItem={({ item }) => (
             <View>
+              <Text
+                style={{ marginTop: 20, color: MD3Colors.neutralVariant60 }}
+              >
+                Features Settings
+              </Text>
               <List.Item
                 title="Prefrences"
-                style={{
-                  backgroundColor: MD3Colors.neutralVariant20,
-                  padding: 5,
-                  margin: 2,
-                  marginBottom: 20,
-                  borderRadius: 24,
-                }}
-                description="settings related to your prefrences"
-                left={(props) => <List.Icon {...props} icon="tune" />}
-              />
-              <Divider />
-              <Text style={{ marginTop: 20 }}>Features Settings</Text>
-              <List.Item
-                title="Notifications"
                 style={{
                   backgroundColor: MD3Colors.neutralVariant20,
                   padding: 5,
@@ -92,8 +83,80 @@ export default function TabTwoScreen() {
                   marginTop: 20,
                   borderRadius: 24,
                 }}
+                description="settings related to your prefrences"
+                left={(props) => <List.Icon {...props} icon="tune" />}
+              />
+              <List.Item
+                title="Notifications"
+                style={{
+                  backgroundColor: MD3Colors.neutralVariant20,
+                  padding: 5,
+                  margin: 2,
+
+                  borderRadius: 24,
+                }}
                 description="settings related to notifications"
                 left={(props) => <List.Icon {...props} icon="bell" />}
+              />
+              <List.Item
+                title="Goals"
+                style={{
+                  backgroundColor: MD3Colors.neutralVariant20,
+                  padding: 5,
+                  margin: 2,
+
+                  borderRadius: 24,
+                }}
+                description="Settings related to Goals"
+                left={(props) => <List.Icon {...props} icon="bullseye-arrow" />}
+              />
+              <List.Item
+                title="Privacy"
+                style={{
+                  backgroundColor: MD3Colors.neutralVariant20,
+                  padding: 5,
+                  margin: 2,
+
+                  borderRadius: 24,
+                }}
+                description="lockmyphone's community"
+                left={(props) => <List.Icon {...props} icon="account-group" />}
+              />
+              <List.Item
+                title="Dummy2"
+                style={{
+                  backgroundColor: MD3Colors.neutralVariant20,
+                  padding: 5,
+                  margin: 2,
+
+                  borderRadius: 24,
+                }}
+                description="lockmyphone's community"
+                left={(props) => <List.Icon {...props} icon="account-group" />}
+              />
+              <List.Item
+                title="Dummy3"
+                style={{
+                  backgroundColor: MD3Colors.neutralVariant20,
+                  padding: 5,
+                  margin: 2,
+
+                  borderRadius: 24,
+                }}
+                description="lockmyphone's community"
+                left={(props) => <List.Icon {...props} icon="account-group" />}
+              />
+              <List.Item
+                title="Dummy4"
+                style={{
+                  backgroundColor: MD3Colors.neutralVariant20,
+                  padding: 5,
+                  margin: 2,
+
+                  borderRadius: 24,
+                }}
+                description="lockmyphone's community"
+                left={(props) => <List.Icon {...props} icon="account-group" />}
               />
               <List.Item
                 title="Pomodoro Timer"
@@ -101,11 +164,65 @@ export default function TabTwoScreen() {
                   backgroundColor: MD3Colors.neutralVariant20,
                   padding: 5,
                   margin: 2,
+                  marginBottom: 20,
                   borderRadius: 24,
                 }}
                 description="settings related to pomodoro timer"
                 left={(props) => <List.Icon {...props} icon="clock" />}
               />
+
+              <Divider />
+              <Text
+                style={{ marginTop: 20, color: MD3Colors.neutralVariant60 }}
+              >
+                About LMP
+              </Text>
+              <List.Item
+                title="About App"
+                style={{
+                  backgroundColor: MD3Colors.neutralVariant20,
+                  padding: 5,
+                  margin: 2,
+                  marginTop: 20,
+                  borderRadius: 24,
+                }}
+                description="About lockmyphone and its contributors"
+                left={(props) => <List.Icon {...props} icon="information" />}
+              />
+              <List.Item
+                title="Terms And Conditions"
+                style={{
+                  backgroundColor: MD3Colors.neutralVariant20,
+                  padding: 5,
+                  margin: 2,
+
+                  borderRadius: 24,
+                }}
+                description="lockmyphone's Terms and Conditions"
+                left={(props) => <List.Icon {...props} icon="note-multiple" />}
+              />
+              <List.Item
+                title="Open Source Licences"
+                style={{
+                  backgroundColor: MD3Colors.neutralVariant20,
+                  padding: 5,
+                  margin: 2,
+
+                  borderRadius: 24,
+                }}
+                description="Open source licences"
+                left={(props) => <List.Icon {...props} icon="license" />}
+              />
+
+              <Text
+                style={{
+                  textAlign: "center",
+                  marginTop: 20,
+                  color: MD3Colors.neutralVariant60,
+                }}
+              >
+                Lockmyphone v1.0.0 alpha
+              </Text>
             </View>
           )}
         />
