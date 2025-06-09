@@ -40,9 +40,11 @@ export default function RootLayout() {
   return (
     <PaperProvider theme={paperTheme}>
       <NavigationThemeProvider value={navigationTheme}>
-        <Stack>
+        <Stack screenOptions={{ animation: "slide_from_right" }}>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
+          <Stack.Screen name="timer" options={{ headerShown: false }} />
+          <Stack.Screen name="about" />
         </Stack>
         <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
       </NavigationThemeProvider>

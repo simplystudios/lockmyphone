@@ -1,6 +1,11 @@
 import { Image } from "expo-image";
 import { Platform, StyleSheet, View, FlatList, ScrollView } from "react-native";
 import ExpressiveCircularProgress from "@/components/CircularProgress"; // adjust your path
+import { useNavigation } from "@react-navigation/native";
+import { TimerPickerModal } from "react-native-timer-picker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LinearGradient } from "expo-linear-gradient"; // or `import LinearGradient from "react-native-linear-gradient"`
+import { router } from "expo-router";
 import {
   PaperProvider,
   ActivityIndicator,
@@ -21,36 +26,100 @@ import {
 } from "react-native-paper";
 import Svg, { Circle, Rect } from "react-native-svg";
 import * as React from "react";
+import { useEffect } from "react";
 import { Background } from "@react-navigation/elements";
+const saveGoals = async (goals) => {
+  try {
+    await AsyncStorage.setItem("userGoals", JSON.stringify(goals));
+  } catch (e) {
+    console.error("Failed to save goals", e);
+  }
+};
 
-// Expressive Material You-style Circular Progress
+// Load data
+const loadGoals = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem("userGoals");
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
+  } catch (e) {
+    console.error("Failed to load goals", e);
+    return null;
+  }
+};
+
+// Helper function to format time object to string like "HH:MM:SS" or "MM:SS"
+const formatTime = ({
+  hours,
+  minutes,
+  seconds,
+}: {
+  hours?: number;
+  minutes?: number;
+  seconds?: number;
+}) => {
+  const timeParts = [];
+
+  if (hours !== undefined) {
+    timeParts.push(hours.toString().padStart(2, "0"));
+  }
+  if (minutes !== undefined) {
+    timeParts.push(minutes.toString().padStart(2, "0"));
+  }
+  if (seconds !== undefined) {
+    timeParts.push(seconds.toString().padStart(2, "0"));
+  }
+
+  return timeParts.join(":");
+};
 
 export default function HomeScreen() {
   const name = "Ansh";
-  const defaultime = 30;
+  const [defaultime, setDefaulttime] = React.useState(30);
+
+  useEffect(() => {
+    async function fetchGoals() {
+      const storedGoals = await loadGoals();
+      if (storedGoals) {
+        setGoalist(storedGoals);
+      }
+    }
+    fetchGoals();
+  }, []);
+
+  // React states inside the component
+  const [showPicker, setShowPicker] = React.useState(false);
+  const [alarmString, setAlarmString] = React.useState<string | null>(null);
   const [visible, setVisible] = React.useState(false);
   const [visible2, setVisible2] = React.useState(false);
   const [goal, setGoal] = React.useState("");
-  const [goaltime, setGoaltime] = React.useState(defaultime);
+  const [goaltime, setGoaltime] = React.useState(defaultime * 60); // defaultime in minutes, so multiply by 60
   const [goalist, setGoalist] = React.useState([
-    { key: "Study", streak: 0, time: 30 },
-    { key: "Workout", streak: 0, time: 30 },
-    { key: "Yoga", streak: 0, time: 30 },
-    { key: "Running", streak: 0, time: 30 },
+    { key: "Study", streak: 0, time: 1800 },
+    { key: "Workout", streak: 0, time: 1800 },
+    { key: "Yoga", streak: 0, time: 1800 },
+    { key: "Running", streak: 0, time: 1800 },
   ]);
   const [addbutdis, setButdis] = React.useState(true);
+
+  const theme = useTheme();
+  const nav = useNavigation();
 
   const closedopend = () => {
     hideDialog();
     showDialog2();
   };
 
-  const goalFlow = () => {
+  const goalFlow = async () => {
     hideDialog2();
     if (goal.trim() !== "") {
-      setGoalist((prev) => [...prev, { key: goal, streak: 0, time: goaltime }]);
+      const newGoalList = [
+        ...goalist,
+        { key: goal, streak: 0, time: goaltime },
+      ];
+      setGoalist(newGoalList);
       setGoal("");
-      setGoaltime(defaultime);
+      setAlarmString(null);
+      await saveGoals(newGoalList);
     }
   };
 
@@ -59,15 +128,16 @@ export default function HomeScreen() {
   };
 
   const showDialog = () => setVisible(true);
-
   const hideDialog = () => setVisible(false);
-
   const showDialog2 = () => setVisible2(true);
-
   const hideDialog2 = () => setVisible2(false);
 
-  // const [text, setText] = React.useState("");
-  const theme = useTheme();
+  const goTo = (item: { key: string; time: number; streak: number }) => {
+    router.push({
+      pathname: "/timer",
+      params: { item: JSON.stringify(item) },
+    });
+  };
 
   return (
     <PaperProvider>
@@ -75,6 +145,7 @@ export default function HomeScreen() {
         <Appbar.Content title="Lock My Phone" />
         <Appbar.Action icon="information" onPress={() => {}} />
       </Appbar.Header>
+
       <ScrollView
         contentContainerStyle={{ justifyContent: "space-evenly" }}
         style={{ flex: 1, padding: 10, marginTop: 0 }}
@@ -92,13 +163,14 @@ export default function HomeScreen() {
           <Text style={{ marginBottom: 5, marginTop: 10 }} variant="bodyLarge">
             Welcome, {name}
           </Text>
-          if (goal.)
+
           <Text style={{ marginBottom: 10 }} variant="displayMedium">
             What's your Goal today?
           </Text>
           <Text style={{ marginBottom: 30 }} variant="titleSmall">
             Choose from the options below
           </Text>
+
           <Searchbar
             style={{
               marginBottom: 20,
@@ -109,12 +181,13 @@ export default function HomeScreen() {
             placeholder="Search"
             mode="bar"
           />
+
           <Portal>
             <Dialog visible={visible} onDismiss={hideDialog}>
               <Dialog.Title>New Goal</Dialog.Title>
               <Dialog.Content>
                 <Text style={{ marginBottom: 10 }} variant="bodyMedium">
-                  Enter the goal name bellow and it will be added in the list of
+                  Enter the goal name below and it will be added in the list of
                   your goals
                 </Text>
                 <TextInput
@@ -130,31 +203,74 @@ export default function HomeScreen() {
               </Dialog.Actions>
             </Dialog>
           </Portal>
+
           <Portal>
             <Dialog visible={visible2} onDismiss={hideDialog2}>
-              <Dialog.Title>set time for {goal}</Dialog.Title>
+              <Dialog.Title>Set time for {goal}</Dialog.Title>
               <Dialog.Content>
                 <Text style={{ marginBottom: 10 }} variant="bodyMedium">
-                  Enter the time you wanna spend for this goal and it will be
-                  saved and whenever you click this goal a pomodoro session will
-                  start with the time you gave Note: time is in mins and default
-                  time is 30 mins you can change it in settings
+                  Enter the time you want to spend for this goal and it will be
+                  saved. Whenever you click this goal, a Pomodoro session will
+                  start with the time you gave. Note: time is in mins and
+                  default time is 30 mins.
                 </Text>
-                <TextInput
-                  value={goaltime}
-                  onChangeText={setGoaltime}
-                  mode="outlined"
-                  inputMode="decimal"
-                  label={"Enter Goal Time"}
+                <Text
+                  style={{
+                    fontSize: 18,
+                    marginTop: 10,
+                    marginBottom: 10,
+                    textAlign: "center",
+                    color: "#F1F1F1",
+                  }}
+                >
+                  {alarmString !== null
+                    ? `Goal Timer set for ${alarmString}`
+                    : "No alarm set"}
+                </Text>
+                <Button
+                  onPress={() => setShowPicker(true)}
+                  mode="contained-tonal"
+                  style={{ marginTop: 10, marginBottom: 10 }}
+                >
+                  Set Goal Time
+                </Button>
+
+                <TimerPickerModal
+                  visible={showPicker}
+                  setIsVisible={setShowPicker}
+                  onConfirm={(pickedDuration) => {
+                    // pickedDuration should be {hours, minutes, seconds}
+                    setAlarmString(formatTime(pickedDuration));
+
+                    // Update goaltime state in minutes
+                    const totalSeconds =
+                      (pickedDuration.hours ?? 0) * 3600 +
+                      (pickedDuration.minutes ?? 0) * 60 +
+                      (pickedDuration.seconds ?? 0);
+
+                    setGoaltime(totalSeconds || defaultime * 60); // defaultime in minutes, so multiply
+                    setShowPicker(false);
+                  }}
+                  modalTitle="Set Alarm"
+                  onCancel={() => setShowPicker(false)}
+                  closeOnOverlayPress
+                  LinearGradient={LinearGradient}
+                  styles={{
+                    theme: "dark",
+                  }}
+                  modalProps={{
+                    overlayOpacity: 0.2,
+                  }}
                 />
               </Dialog.Content>
               <Dialog.Actions>
-                <Button onPress={hideDialog}>Cancel</Button>
+                <Button onPress={hideDialog2}>Cancel</Button>
                 <Button onPress={goalFlow}>Next</Button>
               </Dialog.Actions>
             </Dialog>
           </Portal>
         </View>
+
         <View style={{ padding: 5 }}>
           {addbutdis && (
             <Button
@@ -171,9 +287,11 @@ export default function HomeScreen() {
             </Button>
           )}
         </View>
+
         <FlatList
           style={{ marginTop: 0, marginBottom: 50 }}
           data={goalist}
+          keyExtractor={(item) => item.key}
           renderItem={({ item }) => (
             <View>
               <List.Item
@@ -184,17 +302,30 @@ export default function HomeScreen() {
                   margin: 2,
                   borderRadius: 24,
                 }}
+                onPress={() => goTo(item)}
                 description={`${item.streak} Day Streak`}
                 left={(props) => <List.Icon {...props} icon="bullseye-arrow" />}
-                right={(props) => (
+                right={() => (
                   <Text
                     style={{
                       textAlign: "center",
                       marginTop: "auto",
                       marginBottom: "auto",
+                      marginRight: 10,
                     }}
                   >
-                    {item.time} mins
+                    {(() => {
+                      const totalSeconds = item.time; // Now directly seconds!
+                      const hours = Math.floor(totalSeconds / 3600);
+                      const minutes = Math.floor((totalSeconds % 3600) / 60);
+                      const seconds = totalSeconds % 60;
+
+                      if (hours > 0) {
+                        return `${hours}h ${minutes.toString().padStart(2, "0")}m ${seconds.toString().padStart(2, "0")}s`;
+                      } else {
+                        return `${minutes}m ${seconds.toString().padStart(2, "0")}s`;
+                      }
+                    })()}
                   </Text>
                 )}
               />
