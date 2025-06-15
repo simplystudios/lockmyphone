@@ -1,5 +1,7 @@
 # Lock-My-Phone | LMP
 
+[![wakatime](https://wakatime.com/badge/user/f983c5d0-c6d8-471e-a499-43763ad1d6b4/project/2eed600a-cc21-46bd-ba47-e22d0a9e0fcb.svg)](https://wakatime.com/badge/user/f983c5d0-c6d8-471e-a499-43763ad1d6b4/project/2eed600a-cc21-46bd-ba47-e22d0a9e0fcb)
+
 lmp or lockmyphone is a anroid tool written in react native expo to lock out all the distractions from your smartphone and let you focus on your goals lmp is made with material design 3 using the react-native-paper libraray and some custom component
 
 > **⚠️ Note:** The app is still in active development. Currently, it has zero functionality—we’re focusing on building the frontend and designing the components.
