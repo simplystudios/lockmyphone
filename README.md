@@ -1,8 +1,11 @@
-# Lock-My-Phone | LMP
+<h1 align="center">
+<img style="border:5px, border-radius:10px," src="https://github.com/user-attachments/assets/46b0656f-88e2-4f27-852c-befbc891a190"/>
+</h1>
+
 
 [![wakatime](https://wakatime.com/badge/user/f983c5d0-c6d8-471e-a499-43763ad1d6b4/project/2eed600a-cc21-46bd-ba47-e22d0a9e0fcb.svg)](https://wakatime.com/badge/user/f983c5d0-c6d8-471e-a499-43763ad1d6b4/project/2eed600a-cc21-46bd-ba47-e22d0a9e0fcb)
 
-lmp or lockmyphone is a anroid tool written in react native expo to lock out all the distractions from your smartphone and let you focus on your goals lmp is made with material design 3 using the react-native-paper libraray and some custom component
+Tick is a anroid tool written in react native & expo to lock out all the distractions from your smartphone and let you focus on your goals Tick is made with material design 3 principles using the react-native-paper libraray and some custom components
 
 > **⚠️ Note:** The app is still in active development. Currently, it has zero functionality—we’re focusing on building the frontend and designing the components.
 
@@ -13,18 +16,21 @@ lmp or lockmyphone is a anroid tool written in react native expo to lock out all
 - [x] Add Goals
 - [x] Search Goals
 - [x] Settings Page
+- [x] Local Storage
+- [x] Display Timer
 - [ ] Swipe to Remove Goals
-- [ ] Lock Phone
-- [ ] Display Timer on Locked Screen
 - [ ] Stats
 - [ ] Streaks
-- [ ] Local Storage
 - [ ] Onboarding
 - [ ] Local Backup and Recover
 
 ## Screenshots
 
-<img width="229" alt="image" src="https://github.com/user-attachments/assets/69202b69-4878-4865-9a56-3d435dc724dd">
+| | | |
+|:-------------------------:|:-------------------------:|:-------------------------:|
+|<img width="250" alt="screen shot 2017-08-07 at 12 18 15 pm" src="https://github.com/user-attachments/assets/7653beda-b4aa-4c62-9d54-3591587a1f00"> | |<img width="250" src="https://github.com/user-attachments/assets/f62a51fc-7b09-42a6-a316-429ca3d2b590" alt=""> |
+|<img width="250" alt="screen shot 2017-08-07 at 12 18 15 pm" src="https://github.com/user-attachments/assets/2724cfe4-abfd-404e-b3eb-85da24dbd738"> | |<img width="250" alt="screen shot 2017-08-07 at 12 18 15 pm" src="https://github.com/user-attachments/assets/232f7071-e400-455b-b784-291f2940b5c6">
+
 
 
 
