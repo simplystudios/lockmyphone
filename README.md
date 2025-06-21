@@ -7,7 +7,7 @@
 
 Tick is a anroid tool written in react native & expo to lock out all the distractions from your smartphone and let you focus on your goals Tick is made with material design 3 principles using the react-native-paper libraray and some custom components
 
-> **⚠️ Note:** The app is still in active development. Currently, it has zero functionality—we’re focusing on building the frontend and designing the components.
+> **⚠️ Note:** The app is still in active development
 
 -----
 
